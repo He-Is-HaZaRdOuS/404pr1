@@ -1,0 +1,13 @@
+/out
+bin/
+build/
+/.vs
+.idea/
+build-release/
+build-debug/
+build-minsizerel/
+build-relwithdebinfo/
+/cmake-build-release/
+/cmake-build-debug/
+/cmake-build-minsizerel/
+/cmake-build-relwithdebinfo/
