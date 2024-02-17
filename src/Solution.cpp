@@ -157,6 +157,8 @@ printTimeTable(timeTable, blockedHours);
 
     std::cout << "Cost: " << minSchedule.cost << std::endl;
 
+    assertClassroomDistribution();
+
     if(checkValidityPrint(timeTable))
       std::cout << "Finished" << std::endl;
 
@@ -597,7 +599,7 @@ inline n_Solution::classroomStatus Solution::assignClassrooms(){
       for(uint32_t dim = 0; dim < n_Solution::dimensionCount; ++dim) {
         for(uint64_t cSize = 0; cSize < classListSize; ++cSize) {
           /* check if a course does not have any classrooms assigned yet */
-          if(timeTable.at(dim).week[day][slot].m_currentCourse.m_classrooms.empty()) {
+          if(timeTable.at(dim).week[day][slot].m_status == n_Timeslot::OCCUPIED && timeTable.at(dim).week[day][slot].m_currentCourse.m_classrooms.empty()) {
             /* find empty classrooms in given time interval */
             const uint32_t end = slot + (timeTable.at(dim).week[day][slot].m_currentCourse.m_examDuration / n_Solution::TIMESLOTDURATION);
             std::vector<Classroom> availableClassrooms = getAvailableClassrooms(day, slot, end);
@@ -655,10 +657,21 @@ inline n_Solution::classroomStatus Solution::assignClassrooms(){
 
 /* erase assigned classrooms from timeslots */
 void Solution::resetAssignedClassrooms() {
-  for (uint32_t dim = 0; dim < n_Solution::dimensionCount; ++dim){
-    for(uint8_t day = 0; day < (n_Solution::sundayUnlocked ? 7 : 6); ++day){
+  for (uint32_t dim = 0; dim < n_Solution::dimensionCount; ++dim) {
+    for (uint8_t day = 0; day < (n_Solution::sundayUnlocked ? 7 : 6); ++day) {
       for (uint8_t slot = 0; slot < n_Solution::TIMESLOTCOUNT; ++slot) {
         timeTable.at(dim).week[day][slot].m_currentCourse.m_classrooms.clear();
+      }
+    }
+  }
+}
+void Solution::assertClassroomDistribution() {
+  for(uint32_t dim = 0; dim < n_Solution::dimensionCount; ++dim) {
+    for(uint8_t day = 0; day < (n_Solution::sundayUnlocked ? 7 : 6); ++day){
+      for(uint8_t slot = 0; slot < n_Solution::TIMESLOTCOUNT; ++slot) {
+        if(timeTable.at(dim).week[day][slot].m_status == n_Timeslot::OCCUPIED && timeTable.at(dim).week[day][slot].m_currentCourse.m_classrooms.empty()) {
+          std::cout << timeTable.at(dim).week[day][slot].m_currentCourse.m_code << " Has no classroom(s) assigned" << std::endl;
+        }
       }
     }
   }

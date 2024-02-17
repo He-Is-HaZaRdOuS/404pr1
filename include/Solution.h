@@ -61,6 +61,7 @@ private:
     inline bool fillTable(std::vector<n_Solution::Week> &schedule, uint64_t courseCount, std::vector<bool> &placed, uint32_t &dimensionCount, bool sundayUnlocked) const;
     inline n_Solution::classroomStatus assignClassrooms();
     inline void resetAssignedClassrooms();
+    inline void assertClassroomDistribution();
 
 public:
     explicit Solution(const std::vector<Course>& list, const std::vector<Classroom>& classrooms, const Vector2D<std::string>& blockedHours);
