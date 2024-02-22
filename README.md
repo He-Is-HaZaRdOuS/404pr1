@@ -4,6 +4,23 @@ https://github.com/He-Is-HaZaRdOuS/404pr1 </br>
 </br>
 Originally derived from [CENG303's Term project](https://github.com/He-Is-HaZaRdOuS/303pr1)
 
+# About
+The aim of this repository is to collaborate and develop the project into a useful "Course Scheduler Tool". </br>
+This tool aims to assist university staff in constructing weekly programs for lectures and exams (midterm/final). </br>
+
+There are the usual hard constraints: </br>
+* A student can't have more than one exam assigned at the same time.
+* A student could possibly have more than one course assigned the same time (WIP).
+* A professor can't have more than one course/exam assigned at the same time.
+* A course must be assigned a big enough classroom to seat the students (WIP).
+* An exam must be assigned enough classrooms to seat the students in alternating seats.
+* Certain time hours are reserved for Service course and no other course can be hosted at those times.
+
+And some soft constraints (WIP) </br>
+* Students shouldn't have back-to-back courses/exams.
+* Students shouldn't have a large time difference between courses/exams.
+* Because satisfying the above two conditions is infeasible, try to minimize number of upset students.
+
 # TODO
 - [ ] Re-write the Solution class to be faster and neater
 - [ ] Use more C++ STL features
